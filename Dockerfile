@@ -26,12 +26,12 @@ RUN pecl install redis \
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-COPY conf/php-user.ini $PHP_INI_DIR/conf.d/
-
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
     && composer config -g repo.packagist composer https://packagist.phpcomposer.com \
     && composer global require hirak/prestissimo
+
+COPY conf/php-user.ini $PHP_INI_DIR/conf.d/
 
 COPY conf/supervisor/ /etc/supervisor/conf.d/
 
