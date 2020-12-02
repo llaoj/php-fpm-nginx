@@ -28,8 +28,7 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
-    && composer config -g repo.packagist composer https://packagist.phpcomposer.com \
-    && composer global require hirak/prestissimo
+    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
 COPY conf/php-user.ini $PHP_INI_DIR/conf.d/
 
