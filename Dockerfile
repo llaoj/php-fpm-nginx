@@ -24,13 +24,13 @@ RUN pecl install redis \
     && pecl install protobuf \
     && docker-php-ext-enable redis grpc protobuf
 
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+    && echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+ADD conf/php-user.ini $PHP_INI_DIR/conf.d/
 
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
     && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
-
-COPY conf/php-user.ini $PHP_INI_DIR/conf.d/
 
 COPY conf/supervisor/ /etc/supervisor/conf.d/
 
