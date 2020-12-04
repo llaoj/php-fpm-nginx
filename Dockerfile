@@ -27,12 +27,12 @@ RUN pecl install redis \
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
     && echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 ADD conf/php-user.ini $PHP_INI_DIR/conf.d/
+ADD conf/sources.list /etc/apt/sources.list
+ADD conf/supervisor/ /etc/supervisor/conf.d/
 
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
     && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
-
-COPY conf/supervisor/ /etc/supervisor/conf.d/
 
 WORKDIR /var/www/html
 
