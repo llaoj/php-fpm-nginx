@@ -20,9 +20,7 @@ RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/i
         zip
 
 RUN pecl install redis \
-    && pecl install grpc \
-    && pecl install protobuf \
-    && docker-php-ext-enable redis grpc protobuf
+    && docker-php-ext-enable redis
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
     && echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
