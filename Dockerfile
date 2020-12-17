@@ -25,6 +25,7 @@ RUN pecl install redis \
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
     && echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 ADD conf/php-user.ini $PHP_INI_DIR/conf.d/
+ADD conf/zz-user.conf $PHP_INI_DIR/../php-fpm.d/
 ADD conf/sources.list /etc/apt/sources.list
 ADD conf/supervisor/ /etc/supervisor/conf.d/
 
