@@ -19,11 +19,10 @@ RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/i
         bcmath \
         zip
 
-RUN pecl install redis \
-    && docker-php-ext-enable redis
+RUN pecl install redis && docker-php-ext-enable redis
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+RUN mkdir -p /root/.ssh/ && echo "Host *\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile /dev/null" > /root/.ssh/config
 
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
-    && echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 ADD conf/php-user.ini $PHP_INI_DIR/conf.d/
 ADD conf/zz-user.conf $PHP_INI_DIR/../php-fpm.d/
 ADD conf/sources.list /etc/apt/sources.list
