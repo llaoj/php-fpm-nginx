@@ -17,7 +17,8 @@ RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/i
     && docker-php-ext-install \
         pdo_mysql \
         bcmath \
-        zip
+        zip \
+        exif
 
 RUN pecl install redis && docker-php-ext-enable redis
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
