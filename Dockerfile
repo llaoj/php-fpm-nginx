@@ -1,6 +1,7 @@
-FROM php:7.4-fpm
+FROM php:8.0-fpm
 
 RUN apt-get update && apt-get install -y \
+        vi \
         git \
         libzip-dev \
         zip \
